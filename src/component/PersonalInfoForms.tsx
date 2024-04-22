@@ -9,7 +9,7 @@ const PersonalInfoSchema = Yup.object().shape({
     const currentDate = new Date();
     const birthDate = new Date(value)
     const age = currentDate.getFullYear() - birthDate.getFullYear()
-    return age > 13
+    return age >= 13
   })
 })
 
