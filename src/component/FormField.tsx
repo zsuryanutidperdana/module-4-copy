@@ -5,14 +5,13 @@ interface FormFieldProps {
   textLabel: string;
   fieldName: string;
   fieldPlaceholder: string;
-  errorName: string;
   errorComponent: string;
 }
 
 const FormField: React.FC<FormFieldProps> = ({ ...props }: FormFieldProps) => {
   return (
-    <>
-      <label>{props.textLabel}</label>
+    <div className="flex-col text-left w-4/5">
+      <p>{props.textLabel}</p>
       {props.fieldName === "email" && (
         <Field name="email" type="email" placeholder={props.fieldPlaceholder} />
       )}
@@ -26,7 +25,7 @@ const FormField: React.FC<FormFieldProps> = ({ ...props }: FormFieldProps) => {
       {props.fieldName === "dob" && (
         <Field
           name="dob"
-          type="dob"
+          type="date"
           placeholder={props.fieldPlaceholder}
         />
       )}
@@ -39,8 +38,8 @@ const FormField: React.FC<FormFieldProps> = ({ ...props }: FormFieldProps) => {
             placeholder={props.fieldPlaceholder}
           />
         )}
-      <ErrorMessage name={props.errorName} component={props.errorComponent} />
-    </>
+      <ErrorMessage name={props.fieldName} component={props.errorComponent} />
+    </div>
   );
 };
 
