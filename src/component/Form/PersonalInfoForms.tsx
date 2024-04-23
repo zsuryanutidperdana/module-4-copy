@@ -2,6 +2,7 @@ import { Formik, Form } from "formik"
 import FormField from "./FormField"
 import * as Yup from "yup"
 import React from "react"
+import { Button } from "@mui/material"
 
 const PersonalInfoSchema = Yup.object().shape({
   fullname: Yup.string().min(2, "Invalid full name").matches(/^[a-zA-z]+$/, "Please enter a valid full name.").required("Full name is required!"),
@@ -45,7 +46,7 @@ const PersonalInfoForm:React.FC<ButtonProps> = ({ onSubmit }) =>{
         initialValues={personalInitialValues}
         onSubmit= {onSubmit}
         validationSchema={PersonalInfoSchema}>
-          <Form>
+          <Form className="flex flex-col min-h-screen gap-y-1.5">
             {personalInfoFields.map((field, index) => (
               <FormField
                 key={index}
@@ -55,7 +56,7 @@ const PersonalInfoForm:React.FC<ButtonProps> = ({ onSubmit }) =>{
                 errorComponent={field.errorComponent}
               />
             ))}
-            <button type="submit">Next</button>
+            <Button type="submit">Next</Button>
           </Form>
         </Formik>
       );

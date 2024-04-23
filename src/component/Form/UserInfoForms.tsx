@@ -35,7 +35,7 @@ const UserInfoForm:React.FC<ButtonProps> = ({ onSubmit, prevPage }) =>{
         initialValues={userInitialValues}
         onSubmit= {onSubmit}
         validationSchema={UserInfoSchema}>
-          <Form>
+          <Form className="flex flex-col min-h-screen gap-y-1.5">
             {userInfoFields.map((field, index) => (
               <FormField
                 key={index}
@@ -45,8 +45,10 @@ const UserInfoForm:React.FC<ButtonProps> = ({ onSubmit, prevPage }) =>{
                 errorComponent={field.errorComponent}
               />
             ))}
-            <button onClick={prevPage}>Back</button>
-            <button type="submit">Next</button>
+            <div className="flex">
+              <button onClick={prevPage}>Back</button>
+              <button type="submit">Next</button>
+            </div>
           </Form>
         </Formik>
       );

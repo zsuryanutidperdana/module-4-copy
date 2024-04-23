@@ -1,10 +1,11 @@
 import RegistrationForm from "./component/RegistrationForms";
-import "./App.css";
+import "./App.css"
+
 
 function App() {
   
   return (
-  <div className="App">
+  <div className="w-screen flex flex-col items-center justify-center">
     <RegistrationForm />
   </div>);
 }

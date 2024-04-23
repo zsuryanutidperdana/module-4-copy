@@ -10,10 +10,10 @@ interface FormFieldProps {
 
 const FormField: React.FC<FormFieldProps> = ({ ...props }: FormFieldProps) => {
   return (
-    <div className="flex-col text-left w-4/5">
+    <div className="flex flex-col gap-y-1.5 justify-start">
       <p>{props.textLabel}</p>
       {props.fieldName === "email" && (
-        <Field name="email" type="email" placeholder={props.fieldPlaceholder} />
+        <Field name="email" type="email" placeholder={props.fieldPlaceholder}/>
       )}
       {props.fieldName === "password" && (
         <Field
@@ -29,16 +29,26 @@ const FormField: React.FC<FormFieldProps> = ({ ...props }: FormFieldProps) => {
           placeholder={props.fieldPlaceholder}
         />
       )}
+      {props.fieldName === "address" &&(
+        <Field
+        name="address"
+        as="textarea"
+        type="text"
+        placeholder={props.fieldPlaceholder}
+      />
+      )}
       {props.fieldName !== "email" &&
         props.fieldName !== "password" &&
-        props.fieldName !== "dob" && (
+        props.fieldName !== "dob" && 
+        props.fieldName !== "address" && (
           <Field
             name={props.fieldName}
             type="text"
             placeholder={props.fieldPlaceholder}
+            
           />
         )}
-      <ErrorMessage name={props.fieldName} component={props.errorComponent} />
+      <ErrorMessage className="text-red-600" name={props.fieldName} component={props.errorComponent} />
     </div>
   );
 };
