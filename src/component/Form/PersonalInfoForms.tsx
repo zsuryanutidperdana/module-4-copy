@@ -1,6 +1,7 @@
 import { Formik, Form } from "formik"
 import FormField from "./FormField"
 import * as Yup from "yup"
+import React from "react"
 
 const PersonalInfoSchema = Yup.object().shape({
   fullname: Yup.string().min(2, "Invalid full name").matches(/^[a-zA-z]+$/, "Please enter a valid full name.").required("Full name is required!"),
@@ -13,13 +14,17 @@ const PersonalInfoSchema = Yup.object().shape({
   })
 })
 
-const PersonalInfoForm = () =>{
+interface ButtonProps {
+  onSubmit: (value: any) => void;
+}
+
+const PersonalInfoForm:React.FC<ButtonProps> = ({ onSubmit }) =>{
     const personalInitialValues = {
-      fullName: "",
+      fullname: "",
       email: "",
       dob: "",
     }
-    const PersonalInfoFields = [{
+    const personalInfoFields = [{
         textLabel: "Full Name",
         fieldName: "fullname",
         fieldPlaceholder: "Enter your full name e.g. John Doe",
@@ -38,16 +43,10 @@ const PersonalInfoForm = () =>{
     return (
         <Formik 
         initialValues={personalInitialValues}
-        onSubmit={(values, actions) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              actions.setSubmitting(false);
-            }, 1000);
-          }
-        }
+        onSubmit= {onSubmit}
         validationSchema={PersonalInfoSchema}>
           <Form>
-            {PersonalInfoFields.map((field, index) => (
+            {personalInfoFields.map((field, index) => (
               <FormField
                 key={index}
                 textLabel={field.textLabel}
