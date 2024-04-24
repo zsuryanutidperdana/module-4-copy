@@ -2,6 +2,7 @@ import { useState } from "react";
 import PersonalInfoForm from "./Form/PersonalInfoForms";
 import AddressInfoForm from "./Form/AddressInfoForms";
 import UserInfoForm from "./Form/UserInfoForms";
+import Navbar from "./Navbar/Navbar";
 
 function RegistrationForm() {
   const [page, setPage] = useState<number>(1);
@@ -27,10 +28,11 @@ function RegistrationForm() {
   }
   return (
     <>
-      <div className="flex flex-col items-center justify-center w-full mx-auto h-screen">
-        <h2 className="text-xl text-white mb-5">
+      <Navbar />
+      <div className="flex flex-col items-center w-full h-auto mt-20 mb-10">
+        <h1 className="text-xl text-white mb-5">
           Please fill the information below
-        </h2>
+        </h1>
         {page === 1 && <PersonalInfoForm onSubmit={onSubmit} />}
         {page === 2 && (
           <AddressInfoForm onSubmit={onSubmit} prevPage={prevPage} />

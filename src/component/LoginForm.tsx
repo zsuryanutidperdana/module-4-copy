@@ -1,6 +1,7 @@
 import FormField from "./Form/FormField";
 import { Formik, Form } from "formik";
 import { Button } from "@mui/material";
+import Navbar from "./Navbar/Navbar";
 
 const LoginForm = () => {
   const loginInitialValues = {
@@ -23,24 +24,28 @@ const LoginForm = () => {
   ];
   function onSubmit() {}
   return (
-    <Formik initialValues={loginInitialValues} onSubmit={onSubmit}>
-      <Form className="space-y-4 w-1/4 md:space-y-6">
-        {loginFields.map((field, index) => (
-          <FormField
-            key={index}
-            textLabel={field.textLabel}
-            fieldName={field.fieldName}
-            fieldPlaceholder={field.fieldPlaceholder}
-            errorComponent={field.errorComponent}
-          />
-        ))}
-        <div className="flex pt-5 space-x-5">
-          <Button variant="contained" color="secondary" type="submit">
-            Login
-          </Button>
-        </div>
-      </Form>
-    </Formik>
+    <>
+    <Navbar />
+    <h1 className="block text-xl text-white mt-20 mb-10">Enter your Credentials to Login</h1>
+      <Formik initialValues={loginInitialValues} onSubmit={onSubmit}>
+        <Form className="space-y-4 w-1/4 md:space-y-6">
+          {loginFields.map((field, index) => (
+            <FormField
+              key={index}
+              textLabel={field.textLabel}
+              fieldName={field.fieldName}
+              fieldPlaceholder={field.fieldPlaceholder}
+              errorComponent={field.errorComponent}
+            />
+          ))}
+          <div className="flex pt-5 space-x-5">
+            <Button variant="contained" color="secondary" type="submit">
+              Login
+            </Button>
+          </div>
+        </Form>
+      </Formik>
+    </>
   );
 };
 
