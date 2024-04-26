@@ -10,9 +10,9 @@ const LoginForm = () => {
   };
   const loginFields = [
     {
-      textLabel: "Username",
-      fieldName: "username",
-      fieldPlaceholder: "Enter your Username",
+      textLabel: "Email",
+      fieldName: "email",
+      fieldPlaceholder: "Enter your email address",
       errorComponent: "div",
     },
     {
@@ -22,7 +22,19 @@ const LoginForm = () => {
       errorComponent: "div",
     },
   ];
-  function onSubmit() {}
+  function onSubmit() {
+    /* const res = await fetch("https://library-crud-sample.vercel.app/api/user/login")
+
+
+    const option = {
+      method: "POST",
+      header: {
+        "Content-Type": "application/json",
+      },
+    } 
+
+    const data = await res.json() */
+  }
   return (
     <>
     <Navbar />
@@ -38,8 +50,8 @@ const LoginForm = () => {
               errorComponent={field.errorComponent}
             />
           ))}
-          <div className="flex pt-5 space-x-5">
-            <Button variant="contained" color="secondary" type="submit">
+          <div className="flex pt-5 space-x-5 justify-center">
+            <Button variant="contained" size="large" color="success" type="submit">
               Login
             </Button>
           </div>

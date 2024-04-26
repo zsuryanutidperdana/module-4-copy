@@ -5,7 +5,16 @@ import React from "react";
 import { Button } from "@mui/material";
 
 const UserInfoSchema = Yup.object().shape({
-  username: Yup.string().required("Username is required!"),
+  fullname: Yup.string()
+    .min(2, "Invalid full name")
+    .matches(/^[a-zA-z]+$/, "Please enter a valid full name.")
+    .required("Full name is required!"),
+  email: Yup.string()
+    .matches(
+      /^[\w.-]+@+[a-zA-z+.]+[a-z]{2,6}$/,
+      "Please enter a valid email address."
+    )
+    .required("Email is required!"),
   password: Yup.string()
     .matches(
       /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&\-_])[A-Za-z\d@$!%*#?&\-_]{8,}$/,
@@ -16,19 +25,25 @@ const UserInfoSchema = Yup.object().shape({
 
 interface ButtonProps {
   onSubmit: (value: any) => void;
-  prevPage: () => void;
 }
 
-const UserInfoForm: React.FC<ButtonProps> = ({ onSubmit, prevPage }) => {
+const UserInfoForm: React.FC<ButtonProps> = ({ onSubmit }) => {
   const userInitialValues = {
-    username: "",
+    fullname: "",
+    email: "",
     password: "",
   };
   const userInfoFields = [
     {
-      textLabel: "Username",
-      fieldName: "username",
-      fieldPlaceholder: "Enter your Username",
+      textLabel: "Full Name",
+      fieldName: "fullname",
+      fieldPlaceholder: "Enter your full name e.g. John Doe",
+      errorComponent: "div",
+    },
+    {
+      textLabel: "Email",
+      fieldName: "email",
+      fieldPlaceholder: "Enter your email address",
       errorComponent: "div",
     },
     {
@@ -54,10 +69,9 @@ const UserInfoForm: React.FC<ButtonProps> = ({ onSubmit, prevPage }) => {
             errorComponent={field.errorComponent}
           />
         ))}
-        <div className="flex pt-5 space-x-5">
-          <Button onClick={prevPage}>Back</Button>
-          <Button variant="contained" color="success" type="submit">
-            Next
+        <div className="flex pt-5 space-x-5 justify-center">
+          <Button variant="contained" size="large" color="success" type="submit">
+            Register
           </Button>
         </div>
       </Form>
