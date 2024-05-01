@@ -1,6 +1,6 @@
-import { UserInfoContext } from "../schema/UserContext";
+import { UserInfoState } from "../schema/UserContext";
 
-export async function handleRegister(context: UserInfoContext) {
+export async function handleRegister(context: UserInfoState) {
   const { name, email, password } = context;
 
   try {
@@ -25,7 +25,7 @@ export async function handleRegister(context: UserInfoContext) {
   }
 }
 
-export async function handleLogin(context: any) {
+export async function handleLogin(context: UserInfoState) {
   const { email, password } = context;
   try {
     const body = {
@@ -46,4 +46,29 @@ export async function handleLogin(context: any) {
   } catch (error) {
     console.error(error);
   }
+}
+
+export async function handleLogout() {
+  const token = localStorage.getItem("token");
+  const options = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  try {
+    const response = await fetch(
+      "https://library-crud-sample.vercel.app/api/user/logout",
+      options
+    );
+    if (!response.ok) {
+      throw new Error("There is a problem with the network");
+    }
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+  localStorage.removeItem("token");
 }

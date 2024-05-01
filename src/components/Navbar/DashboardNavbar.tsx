@@ -1,15 +1,16 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { handleLogout } from "../../utils/handleUser";
 
 const DashboardNavbar = () => {
   const navigate = useNavigate();
-  const navbarItems = [["Home", "/"]];
+  const navbarItems = [["Dashboard", "/dashboard"]];
+  const logout = () => {
+    handleLogout();
+    setTimeout(() => navigate("/"), 5000);
+  };
   return (
-    <nav
-      className={
-        "flex w-full h-12 items-center justify-around sticky bg-blue-800 text-white text-lg"
-      }
-    >
+    <nav className="flex w-full h-12 items-center justify-around sticky bg-blue-800 text-white text-lg">
       <ul className="flex w-3/12 gap-x-10">
         {navbarItems.map(([item, url], index) => (
           <li
@@ -22,15 +23,8 @@ const DashboardNavbar = () => {
         ))}
       </ul>
       <div className="flex gap-x-5">
-        <Button color="inherit" onClick={(e) => navigate("/login")}>
-          Sign-in
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={(e) => navigate("/register")}
-        >
-          Sign up
+        <Button variant="contained" color="warning" onClick={logout}>
+          Logout
         </Button>
       </div>
     </nav>

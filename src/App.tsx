@@ -1,11 +1,11 @@
-import RegistrationForm from "./component/RegistrationForms";
-import LoginForm from "./component/LoginForm";
-import HomePage from "./component/HomePage";
+import RegistrationForm from "./pages/RegistrationForms";
+import LoginForm from "./pages/LoginForm";
+import HomePage from "./pages/HomePage";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserContextProvider } from "./schema/UserContext";
 import PrivateRoutes from "./utils/PrivateRouter";
-import DashboardTable from "./component/Dashboard/DashboardTable";
+import DashboardPage from "./pages/DashboardPage";
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
             <Route path="*" element={<p>There is nothing here: 404</p>} />
             <Route element={<PrivateRoutes />}>
-              <Route path="/dashboard" element={<DashboardTable />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
             </Route>
           </Routes>
         </Router>

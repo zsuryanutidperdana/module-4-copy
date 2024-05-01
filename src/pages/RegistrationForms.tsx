@@ -1,16 +1,14 @@
-import { useContext } from "react";
-import UserInfoForm from "./Form/UserInfoForms";
-import Navbar from "./Navbar/Navbar";
-import { UserContext, UserInfoState } from "../schema/UserContext";
+import UserInfoForm from "../components/Form/UserInfoForms";
+import Navbar from "../components/Navbar/Navbar";
+import { UserInfoState } from "../schema/UserContext";
 import { useNavigate } from "react-router-dom";
 import { handleRegister } from "../utils/handleUser";
 
 function RegistrationForm() {
-  const user = useContext(UserContext);
   const navigate = useNavigate();
 
   function onSubmit(values: UserInfoState) {
-    handleRegister(user);
+    handleRegister(values);
     setTimeout(() => navigate("/"), 1000);
   }
 

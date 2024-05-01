@@ -1,16 +1,18 @@
-import FormField from "./Form/FormField";
+import FormField from "../components/Form/FormField";
 import { Formik, Form } from "formik";
 import { Button } from "@mui/material";
-import Navbar from "./Navbar/Navbar";
+import Navbar from "../components/Navbar/Navbar";
 import { handleLogin } from "../utils/handleUser";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { UserContext } from "../schema/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const user = useContext(UserContext);
+  const navigate = useNavigate();
   const loginInitialValues = {
-    email: "",
-    password: "",
+    email: user.email,
+    password: user.password,
   };
 
   const loginFields = [
@@ -28,8 +30,10 @@ const LoginForm = () => {
     },
   ];
   function onSubmit(values: any) {
-    user.setUser(values);
     handleLogin(values);
+    setTimeout(() => {
+      navigate("/dashboard");
+    }, 5000);
   }
   return (
     <>
