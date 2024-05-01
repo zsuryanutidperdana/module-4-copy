@@ -16,6 +16,7 @@ export interface UserInfoContext {
   email: string;
   password: string;
   setUser: React.Dispatch<SetStateAction<UserInfoState>>;
+  handleChangeUser: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const UserContext = createContext<UserInfoContext>({
@@ -23,24 +24,23 @@ export const UserContext = createContext<UserInfoContext>({
   email: "",
   password: "",
   setUser: () => {},
+  handleChangeUser: () => {},
 });
 
 export const UserContextProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [user, setUser] = useState<UserInfoState>({
-    name: "",
-    email: "",
-    password: "",
+    name: "test",
+    email: "test",
+    password: "test",
   });
-  // const handleChangeUser = (values: UserInfoState) => {
-  //   setUser({
-  //     name: values.name,
-
-  //   });
-  // };
+  const handleChangeUser = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUser((prevData) => ({ ...prevData, [name]: value }));
+  };
   return (
-    <UserContext.Provider value={{ ...user, setUser }}>
+    <UserContext.Provider value={{ ...user, setUser, handleChangeUser }}>
       {children}
     </UserContext.Provider>
   );

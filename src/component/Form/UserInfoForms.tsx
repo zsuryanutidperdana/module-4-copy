@@ -30,9 +30,6 @@ interface ButtonProps {
 
 const UserInfoForm: React.FC<ButtonProps> = ({ onSubmit }) => {
   const user = useContext(UserContext);
-  const handleChange = (key: string, value: string) => {
-    user.setUser((oldUser) => ({ ...oldUser, [key]: value }));
-  };
   const userInitialValues = {
     name: user.name,
     email: user.email,
@@ -44,24 +41,18 @@ const UserInfoForm: React.FC<ButtonProps> = ({ onSubmit }) => {
       fieldName: "name",
       fieldPlaceholder: "Enter your full name e.g. John Doe",
       errorComponent: "div",
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        handleChange("name", e.target.value),
     },
     {
       textLabel: "Email",
       fieldName: "email",
       fieldPlaceholder: "Enter your email address",
       errorComponent: "div",
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        handleChange("email", e.target.value),
     },
     {
       textLabel: "Password",
       fieldName: "password",
       fieldPlaceholder: "Enter your password",
       errorComponent: "div",
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        handleChange("password", e.target.value),
     },
   ];
   return (

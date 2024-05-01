@@ -10,7 +10,6 @@ function RegistrationForm() {
   const navigate = useNavigate();
 
   function onSubmit(values: UserInfoState) {
-    user.setUser(values);
     handleRegister(user);
     setTimeout(() => navigate("/"), 1000);
   }

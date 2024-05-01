@@ -9,8 +9,8 @@ import { UserContext } from "../schema/UserContext";
 const LoginForm = () => {
   const user = useContext(UserContext);
   const loginInitialValues = {
-    email: user.email,
-    password: user.password,
+    email: "",
+    password: "",
   };
 
   const loginFields = [
@@ -29,7 +29,7 @@ const LoginForm = () => {
   ];
   function onSubmit(values: any) {
     user.setUser(values);
-    handleLogin(user);
+    handleLogin(values);
   }
   return (
     <>

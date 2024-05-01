@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Field, ErrorMessage } from "formik";
+import { UserContext } from "../../schema/UserContext";
 
 interface FormFieldProps {
   textLabel: string;
@@ -8,7 +9,11 @@ interface FormFieldProps {
   errorComponent: string;
 }
 
-const FormField: React.FC<FormFieldProps> = ({ ...props }: FormFieldProps) => {
+const FormField: React.FC<FormFieldProps> = (
+  { ...props }: FormFieldProps,
+  e: React.ChangeEvent<HTMLInputElement>
+) => {
+  const { handleChangeUser } = useContext(UserContext);
   return (
     <div className="flex flex-col gap-y-1.5 justify-start">
       <p className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -20,6 +25,7 @@ const FormField: React.FC<FormFieldProps> = ({ ...props }: FormFieldProps) => {
           type="email"
           placeholder={props.fieldPlaceholder}
           className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          onChange={handleChangeUser}
         />
       )}
       {props.fieldName === "password" && (
@@ -28,6 +34,7 @@ const FormField: React.FC<FormFieldProps> = ({ ...props }: FormFieldProps) => {
           type="password"
           placeholder={props.fieldPlaceholder}
           className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          onChange={handleChangeUser}
         />
       )}
       {props.fieldName !== "email" && props.fieldName !== "password" && (
@@ -36,6 +43,7 @@ const FormField: React.FC<FormFieldProps> = ({ ...props }: FormFieldProps) => {
           type="text"
           placeholder={props.fieldPlaceholder}
           className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          onChange={handleChangeUser}
         />
       )}
       <ErrorMessage
