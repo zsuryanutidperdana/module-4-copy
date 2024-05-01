@@ -1,11 +1,12 @@
 import { Formik, Form } from "formik";
 import FormField from "./FormField";
 import * as Yup from "yup";
-import React from "react";
+import React, { useContext } from "react";
 import { Button } from "@mui/material";
+import { UserContext } from "../../schema/UserContext";
 
 const UserInfoSchema = Yup.object().shape({
-  fullname: Yup.string()
+  name: Yup.string()
     .min(2, "Invalid full name")
     .matches(/^[a-zA-z]+$/, "Please enter a valid full name.")
     .required("Full name is required!"),
@@ -28,29 +29,39 @@ interface ButtonProps {
 }
 
 const UserInfoForm: React.FC<ButtonProps> = ({ onSubmit }) => {
+  const user = useContext(UserContext);
+  const handleChange = (key: string, value: string) => {
+    user.setUser((oldUser) => ({ ...oldUser, [key]: value }));
+  };
   const userInitialValues = {
-    fullname: "",
-    email: "",
-    password: "",
+    name: user.name,
+    email: user.email,
+    password: user.password,
   };
   const userInfoFields = [
     {
       textLabel: "Full Name",
-      fieldName: "fullname",
+      fieldName: "name",
       fieldPlaceholder: "Enter your full name e.g. John Doe",
       errorComponent: "div",
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleChange("name", e.target.value),
     },
     {
       textLabel: "Email",
       fieldName: "email",
       fieldPlaceholder: "Enter your email address",
       errorComponent: "div",
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleChange("email", e.target.value),
     },
     {
       textLabel: "Password",
       fieldName: "password",
       fieldPlaceholder: "Enter your password",
       errorComponent: "div",
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        handleChange("password", e.target.value),
     },
   ];
   return (
@@ -70,7 +81,12 @@ const UserInfoForm: React.FC<ButtonProps> = ({ onSubmit }) => {
           />
         ))}
         <div className="flex pt-5 space-x-5 justify-center">
-          <Button variant="contained" size="large" color="success" type="submit">
+          <Button
+            variant="contained"
+            size="large"
+            color="success"
+            type="submit"
+          >
             Register
           </Button>
         </div>

@@ -2,12 +2,17 @@ import FormField from "./Form/FormField";
 import { Formik, Form } from "formik";
 import { Button } from "@mui/material";
 import Navbar from "./Navbar/Navbar";
+import { handleLogin } from "../utils/handleUser";
+import React, { useContext } from "react";
+import { UserContext } from "../schema/UserContext";
 
 const LoginForm = () => {
+  const user = useContext(UserContext);
   const loginInitialValues = {
-    username: "",
-    password: "",
+    email: user.email,
+    password: user.password,
   };
+
   const loginFields = [
     {
       textLabel: "Email",
@@ -22,23 +27,16 @@ const LoginForm = () => {
       errorComponent: "div",
     },
   ];
-  function onSubmit() {
-    /* const res = await fetch("https://library-crud-sample.vercel.app/api/user/login")
-
-
-    const option = {
-      method: "POST",
-      header: {
-        "Content-Type": "application/json",
-      },
-    } 
-
-    const data = await res.json() */
+  function onSubmit(values: any) {
+    user.setUser(values);
+    handleLogin(user);
   }
   return (
     <>
-    <Navbar />
-    <h1 className="block text-xl text-white mt-20 mb-10">Enter your Credentials to Login</h1>
+      <Navbar />
+      <h1 className="block text-xl text-white mt-20 mb-10">
+        Enter your Credentials to Login
+      </h1>
       <Formik initialValues={loginInitialValues} onSubmit={onSubmit}>
         <Form className="space-y-4 w-1/4 md:space-y-6">
           {loginFields.map((field, index) => (
@@ -51,7 +49,12 @@ const LoginForm = () => {
             />
           ))}
           <div className="flex pt-5 space-x-5 justify-center">
-            <Button variant="contained" size="large" color="success" type="submit">
+            <Button
+              variant="contained"
+              size="large"
+              color="success"
+              type="submit"
+            >
               Login
             </Button>
           </div>
